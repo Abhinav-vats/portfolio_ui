@@ -5,7 +5,6 @@ import {
   Routes,
   Navigate,
 } from "react-router-dom";
-import { LoginSignup } from "./Components/LoginSignup/LoginSignup";
 import OTPVerification from "./Components/OTPVerification/OTPVerification";
 import RegistrationForm from "./Components/RegistrationForm/RegistrationForm";
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -97,6 +96,7 @@ const App = () => {
       );
       const data = await response.json();
       if (response.status === 200 && data.status==="success") {
+        setRandomKey("");
         return { status:true };
         // Display success message
         // Redirect user to another page or perform further actions
@@ -160,7 +160,6 @@ const App = () => {
       <div>
         <NavbarOff username={username}/>
         <Routes>
-          <Route path="/loginOld" element={<LoginSignup />} />
           <Route path="/login" element={<Login handleLogin={handleLogin}/>} />
           <Route
             path="/register"
