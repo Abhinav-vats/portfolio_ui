@@ -1,19 +1,27 @@
 // Login.js
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import './Login.css';
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import "./Login.css";
+import { useAuth } from "../AuthContext/AuthContext";
 
 const Login = ({ handleLogin }) => {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [loginMessage, setLoginMessage] = useState('');
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [loginMessage, setLoginMessage] = useState("");
   const navigate = useNavigate();
+  const { login } = useAuth();
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    handleLogin({ email, password });
-    setLoginMessage("Login Success")
-    setTimeout(() => navigate('/dashboard'), 2000);
+    const success = await handleLogin({ email, password });
+    console.log(success)
+    if (success) {
+      setLoginMessage("Login Success");
+      login();
+      setTimeout(() => navigate("/dashboard"), 2000);
+    }else{
+      setLoginMessage("Login Failed");
+    }
   };
 
   return (
@@ -21,7 +29,9 @@ const Login = ({ handleLogin }) => {
       <div className="row justify-content-center">
         <div className="col-md-6">
           <div className="card shadow">
-            <div className="card-header"><h3>Login</h3></div>
+            <div className="card-header">
+              <h3>Login</h3>
+            </div>
             <div className="card-body">
               <form onSubmit={handleSubmit}>
                 <div className="form-group">
@@ -50,7 +60,19 @@ const Login = ({ handleLogin }) => {
                   Login
                 </button>
               </form>
-              {loginMessage && <p className="mt-3">{loginMessage}</p>}
+              {/* {loginMessage && <p className="mt-3">{loginMessage}</p>} */}
+              {loginMessage && (
+            <div
+              className={`alert ${
+                loginMessage.includes("Success")
+                  ? "alert-success"
+                  : "alert-danger"
+              } mt-3`}
+              role="alert"
+            >
+              {loginMessage}
+            </div>
+          )}
             </div>
           </div>
         </div>

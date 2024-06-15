@@ -8,7 +8,7 @@ import AppConstants from '../../Constants';
 
 
 //function OffcanvasExample() {
-  const NavbarOff = ({ username }) => {
+  const NavbarOff = ({ username, logedIn }) => {
   return (
     <>
       {[false].map((expand) => (
@@ -34,9 +34,11 @@ import AppConstants from '../../Constants';
                   <NavDropdown title="Dropdown" id={`offcanvasNavbarDropdown-expand-${expand}`}>
                     <NavDropdown.Item href="/suggest">Suggestion</NavDropdown.Item>
                     <NavDropdown.Divider />
-                    <NavDropdown.Item href="/login">Log In</NavDropdown.Item>
+                    <NavDropdown.Item href="/login">{!logedIn?"Log In":""}</NavDropdown.Item>
                     
-                    <NavDropdown.Item href="/register">Sign Up</NavDropdown.Item>
+                    <NavDropdown.Item href="/register">{!logedIn?"Sign Up":""}</NavDropdown.Item>
+                    
+                    <NavDropdown.Item href="/signout">{logedIn?"Log Out":""}</NavDropdown.Item>
                   </NavDropdown>
                 </Nav>
                 
