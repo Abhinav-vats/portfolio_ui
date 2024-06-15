@@ -5,9 +5,30 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  height: 100vh;
+  background: linear-gradient(#ffff, #020944);
 }
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
+}
+
+.text {
+  color: #3c009d;
+  font-size: 48px;
+  font-weight: 700;
+}
+
+
+.text-white {
+  color: #ffff;
+  font-size: 30px;
+  font-weight: 700;
+}
+
+.text-white-sm {
+  color: #ffff;
+  font-size: 2  0px;
+  font-weight: 700;
 }
