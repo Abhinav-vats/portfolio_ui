@@ -36,3 +36,40 @@
     transform: rotate(360deg);
   }
 }
+/* Center align card in the middle of the page */
+.card {
+  margin: 0 auto;
+  max-width: 400px;
+}
+
+/* Add padding to the card body */
+.card-body {
+  padding: 30px;
+}
+
+/* Style form labels */
+.form-label {
+  font-weight: bold;
+}
+
+/* Center align form buttons */
+.text-center {
+  text-align: center;
+  margin-top: 20px;
+}
+
+/* Custom styles for card headers */
+.card-header {
+  border-radius: 0.25rem 0.25rem 0 0;
+  font-size: 1.5rem;
+}
+
+/* Add shadow to cards for depth effect */
+.shadow {
+  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+}
+
+/* Add margin to the top of the container */
+.container {
+  margin-top: 50px;
+}
