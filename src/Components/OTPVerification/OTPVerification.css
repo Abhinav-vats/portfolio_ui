@@ -1,0 +1,42 @@
+/* OTPVerification.css */
+.card {
+    margin-top: 50px;
+  }
+  
+  .card-header {
+    background-color: #007bff;
+    color: white;
+    text-align: center;
+  }
+  
+  .card-body {
+    padding: 20px;
+  }
+  
+  .otp-input {
+    width: 40px;
+    height: 40px;
+    text-align: center;
+    margin: 0 5px;
+    font-size: 1.5rem;
+    border: 1px solid #ced4da;
+    border-radius: 4px;
+  }
+  
+  .btn-primary {
+    width: 100%;
+  }
+  
+  .mt-3 {
+    margin-top: 1rem;
+  }
+  
+  .mt-5 {
+    margin-top: 3rem;
+  }
+  
+  .btn-link {
+    color: #007bff;
+    text-decoration: none;
+  }
+  

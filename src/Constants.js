@@ -1,5 +1,5 @@
 const AppConstants =  {
-    title: "aBBy's Portfolio"
+    title: "aBBy"
 }
 
 export default AppConstants;
