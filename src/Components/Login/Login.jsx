@@ -13,14 +13,33 @@ const Login = ({ handleLogin }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const success = await handleLogin({ email, password });
-    console.log(success)
-    if (success) {
-      setLoginMessage("Login Success");
-      login();
-      setTimeout(() => navigate("/dashboard"), 2000);
-    }else{
-      setLoginMessage("Login Failed");
+    try {
+      // Make API call to register user
+      // Replace with actual API endpoint and fetch request
+      const response = await fetch(
+        "http://localhost:8081/authenticate/v1/login",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ email, password }),
+        }
+      );
+      if (response.status === 200) {
+        const data = await response.json();
+        if (data.status === "success") {
+          const token= data.result.token;
+          setLoginMessage("Login Success");
+          login(token);
+          setTimeout(() => navigate("/dashboard"), 2000);
+        } else {
+          alert(data.result.reason); // Display error message if registration fails
+        }
+      }
+    } catch (error) {
+      console.error("Error registering user:", error);
+      alert("Failed to register user. Please try again.");
     }
   };
 
@@ -62,17 +81,17 @@ const Login = ({ handleLogin }) => {
               </form>
               {/* {loginMessage && <p className="mt-3">{loginMessage}</p>} */}
               {loginMessage && (
-            <div
-              className={`alert ${
-                loginMessage.includes("Success")
-                  ? "alert-success"
-                  : "alert-danger"
-              } mt-3`}
-              role="alert"
-            >
-              {loginMessage}
-            </div>
-          )}
+                <div
+                  className={`alert ${
+                    loginMessage.includes("Success")
+                      ? "alert-success"
+                      : "alert-danger"
+                  } mt-3`}
+                  role="alert"
+                >
+                  {loginMessage}
+                </div>
+              )}
             </div>
           </div>
         </div>

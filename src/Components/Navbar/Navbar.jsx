@@ -5,10 +5,14 @@ import Navbar from 'react-bootstrap/Navbar';
 import NavDropdown from 'react-bootstrap/NavDropdown';
 import Offcanvas from 'react-bootstrap/Offcanvas';
 import AppConstants from '../../Constants';
+import { useAuth } from '../AuthContext/AuthContext';
+import { Link } from 'react-router-dom';
 
 
 //function OffcanvasExample() {
-  const NavbarOff = ({ username, logedIn }) => {
+  const NavbarOff = ({ username }) => {
+    const { isAuthenticated, logout } = useAuth();
+
   return (
     <>
       {[false].map((expand) => (
@@ -34,11 +38,35 @@ import AppConstants from '../../Constants';
                   <NavDropdown title="Dropdown" id={`offcanvasNavbarDropdown-expand-${expand}`}>
                     <NavDropdown.Item href="/suggest">Suggestion</NavDropdown.Item>
                     <NavDropdown.Divider />
-                    <NavDropdown.Item href="/login">{!logedIn?"Log In":""}</NavDropdown.Item>
+
+                    {!isAuthenticated ? (
+              <>
+                <li className="nav-item">
+                  <Link className="nav-link dropdown-item" to="/login">
+                    <div className="container md-5">Login</div>
+                  </Link>
+                </li>
+                <li className="nav-item">
+                  <Link className="nav-link" to="/register">
+                  <div className="container md-5">Sign Up</div>
+                  </Link>
+                </li>
+              </>
+            ) : (
+              <li className="nav-item">
+                <button className="btn btn-link nav-link" onClick={logout}>
+                  Logout
+                </button>
+              </li>
+            )}
+                    {/* <NavDropdown.Item href="/login">{!isAuthenticated?"Log In":""}</NavDropdown.Item>*/}
                     
-                    <NavDropdown.Item href="/register">{!logedIn?"Sign Up":""}</NavDropdown.Item>
                     
-                    <NavDropdown.Item href="/signout">{logedIn?"Log Out":""}</NavDropdown.Item>
+                    {/* <NavDropdown.Item href="/register">{!isAuthenticated?"Sign Up":""}</NavDropdown.Item> */}
+                    {/* <NavDropdown.Item href="/signout"></NavDropdown.Item> */}
+                    {/* {!isAuthenticated? (<li><Link class="dropdown-item" to="/signout">{()=>{logout() */}
+                      {/* return "Sign out"}}</Link></li>):""} */} 
+                    
                   </NavDropdown>
                 </Nav>
                 

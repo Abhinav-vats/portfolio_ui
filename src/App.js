@@ -13,6 +13,7 @@ import NavbarOff from "./Components/Navbar/Navbar";
 import Dashboard from "./Components/Dashboard/Dashboard";
 import { AuthProvider } from "./Components/AuthContext/AuthContext";
 import PrivateRoute from "./Components/PrivateRoute/PrivateRoute";
+import SignOut from "./Components/Line/SignOut";
 
 // import { Route, Router } from 'react-router-dom';
 
@@ -21,39 +22,28 @@ const App = () => {
   const [randomKey, setRandomKey] = useState("");
   const [username, setUsername] = useState("");
   const [token, setToken] = useState("");
-  const [logedIn, setLogedIn] = useState(false);
 
-  const handleLogin = async ({ email, password }) => {
-    try {
-      // Make API call to register user
-      // Replace with actual API endpoint and fetch request
-      const response = await fetch(
-        "http://localhost:8081/authenticate/v1/login",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({ email, password }),
-        }
-      );
-      if (response.status === 200) {
-        const data = await response.json();
-        if (data.status === "success") {
-          setToken(data.result.token); // Store token for other service call
+  const handleLogin = async ({ token }) => {
+    // try {
+    //   // Make API call to register user
+    //   // Replace with actual API endpoint and fetch request
+    //   const response = await fetch(
+    //     "http://localhost:8081/authenticate/v1/login",
+    //     {
+    //       method: "POST",
+    //       headers: {
+    //         "Content-Type": "application/json",
+    //       },
+    //       body: JSON.stringify({ email, password }),
+    //     }
+    //   );
+    //   if (response.status === 200) {
+    //     const data = await response.json();
+    //     if (data.status === "success") {
+          setToken(token); // Store token for other service call
 
-          setLogedIn(true);
+          sessionStorage.setItem("authorizationToken", token)
           return true; // Redirect to dashboard
-        } else {
-          alert(data.result.reason); // Display error message if registration fails
-        }
-      }
-    } catch (error) {
-      console.error("Error registering user:", error);
-      alert("Failed to register user. Please try again.");
-    }
-
-    return false;
   };
 
   const handleRegistration = async ({ name, email, password }) => {
@@ -163,8 +153,8 @@ const App = () => {
   return (
     <AuthProvider>
       <Router>
-        <div>
-          <NavbarOff username={username} logedIn={logedIn} />
+      <NavbarOff username={username} />
+        <div className="container mt-4">
           <Routes>
             <Route
               path="/login"
@@ -201,12 +191,13 @@ const App = () => {
             <Route
               path="/dashboard"
               element={
-                //logedIn ? (
                   <Dashboard handleUserDetail={handleUserDetail} />
-                // ) : (
-                //   <Navigate to="/login" replace />
-                // )
-                // <Dashboard handleUserDetail={handleUserDetail} />
+              }
+            />
+            <Route
+              path="/signout"
+              element={
+                  <SignOut/>
               }
             />
             {/* <Route path="/about" component={About} /> */}
